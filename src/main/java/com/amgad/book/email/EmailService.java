@@ -3,6 +3,7 @@ package com.amgad.book.email;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -20,6 +21,7 @@ import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EmailService {
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
@@ -27,6 +29,7 @@ public class EmailService {
     //something to be added
     @Async
     public void sendEmail(EmailData emailData) throws MessagingException {
+        log.info("Sending email : {}", emailData);
         String templateName;
         if (emailData.getEmailTemplateName() == null) {
             templateName = "confirm-email";
@@ -47,5 +50,6 @@ public class EmailService {
         String template = templateEngine.process(templateName, context);
         mimeMessageHelper.setText(template, true);
         mailSender.send(mimeMessage);
+        log.info("Email sent : {}", emailData);
     }
 }
