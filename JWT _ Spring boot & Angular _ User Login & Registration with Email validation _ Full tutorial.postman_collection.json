@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "f6e7e4e7-a5bd-47d0-ab5d-ed7ee94d5f9f",
+		"name": "JWT _ Spring boot & Angular _ User Login & Registration with Email validation _ Full tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33221095"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"mohamed\",\r\n  \"lastName\": \"amgad\",\r\n  \"email\": \"mohamed.amgad@example.com\",\r\n  \"password\": \"mohamedamgad\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"mohamed.amgad@example.com\",\r\n  \"password\": \"mohamedamgad\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/v1/auth/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activate-account",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/api/v1/auth/activate-account?token=604773",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"activate-account"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "604773"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
