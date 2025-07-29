@@ -82,7 +82,7 @@ public class AuthenticationService {
         Token activationToken = tokenRepository.findByToken(token)
                 //todo -better exception handling
                 .orElseThrow(() -> new RuntimeException("Invalid activation token"));
-        if (activationToken.getExpiresAt().isAfter(LocalDateTime.now())) {
+        if (LocalDateTime.now().isAfter(activationToken.getExpiresAt())) {
             sendValidationEmail(activationToken.getUser());
             //todo -better exception handling
             throw new RuntimeException("Activation token has expired, a new token has been sent to same email address");
