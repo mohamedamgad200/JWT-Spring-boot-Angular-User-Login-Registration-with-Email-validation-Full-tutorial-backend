@@ -20,6 +20,7 @@ public enum BusinessErrorCodes {
 
     INTERNAL_SERVER(305, INTERNAL_SERVER_ERROR, "Internal server error please try again later"),
 
+    GENERAL_ERROR(400, BAD_REQUEST, "General error"),
     ;
     @Getter
     private final int code;

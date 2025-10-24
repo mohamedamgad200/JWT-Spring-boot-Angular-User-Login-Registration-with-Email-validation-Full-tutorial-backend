@@ -76,6 +76,17 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(BaseAppException.class)
+    public ResponseEntity<ExceptionResponse>handelException(BaseAppException baseAppException){
+        return ResponseEntity.status(BAD_REQUEST).body(
+                ExceptionResponse.builder()
+                        .businessErrorCode(BusinessErrorCodes.GENERAL_ERROR.getCode())
+                        .businessErrorDescription(BusinessErrorCodes.GENERAL_ERROR.getDescription())
+                        .errorMessage(baseAppException.getMessage())
+                        .build()
+        );
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse>handelException(Exception exception){
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(
