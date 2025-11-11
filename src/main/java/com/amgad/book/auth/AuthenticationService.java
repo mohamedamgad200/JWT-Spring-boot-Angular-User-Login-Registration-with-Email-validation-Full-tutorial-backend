@@ -3,6 +3,7 @@ package com.amgad.book.auth;
 import com.amgad.book.email.EmailData;
 import com.amgad.book.email.EmailService;
 import com.amgad.book.email.EmailTemplateName;
+import com.amgad.book.handler.BaseAppException;
 import com.amgad.book.role.Role;
 import com.amgad.book.role.RoleRepository;
 import com.amgad.book.security.JwtService;
@@ -41,7 +42,6 @@ public class AuthenticationService {
 
     public RegisterResponse register(RegisterRequest registerRequest) throws MessagingException {
         Role userRole = roleRepository.findRoleByName("USER")
-                //todo -better exception handling
                 .orElseThrow(() -> new IllegalStateException("Role User was not initialized in the database"));
         User user = User.builder().
                 firstName(registerRequest.getFirstName())
@@ -80,14 +80,11 @@ public class AuthenticationService {
     public void activateAccount(String token) throws MessagingException {
 
         Token activationToken = tokenRepository.findByToken(token)
-                //todo -better exception handling
-                .orElseThrow(() -> new RuntimeException("Invalid activation token"));
+                .orElseThrow(() -> new BaseAppException("Invalid activation token"));
         if (LocalDateTime.now().isAfter(activationToken.getExpiresAt())) {
             sendValidationEmail(activationToken.getUser());
-            //todo -better exception handling
-            throw new RuntimeException("Activation token has expired, a new token has been sent to same email address");
+            throw new BaseAppException("Activation token has expired, a new token has been sent to same email address");
         }
-        //todo -better exception handling
         User user = userRepository.findById(activationToken.getUser().getId()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         user.setEnabled(true);
         userRepository.save(user);
