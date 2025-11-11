@@ -18,5 +18,6 @@ public class AuthenticationRequest {
     private String email;
     @NotEmpty(message = "Password name is mandatory")
     @NotBlank(message = "Password name is mandatory")
+    @Size(min = 8, message = "Password should be 8 characters long minimum")
     private String password;
 }
